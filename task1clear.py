@@ -7,7 +7,7 @@ class Node:
 
 class LinkedList:
 
-    def init(self):
+    def __init__(self):
         self.head = None
         self.tail = None
 
@@ -20,18 +20,16 @@ class LinkedList:
 
     def print_all_nodes(self):
         node = self.head
-        while node != None:
+        while node is not None:
             print(node.value)
             node = node.next
 
     def find(self, val):
         node = self.head
-
         while node is not None:
             if node.value == val:
                 return node
             node = node.next
-
         return None
 
     def find_all(self, val):
@@ -41,29 +39,28 @@ class LinkedList:
             if node.value == val:
                 found_nodes.append(node)
             node = node.next
-
         return found_nodes
 
     def delete(self, val, all=False):
         if self.head is None:
             return
-
         if self.head.value == val:
             self.head = self.head.next
+            if self.head is None:
+                self.tail = None
             if not all:
                 return
-
         prev_node = self.head
         current_node = prev_node.next
-
         while current_node is not None:
             if current_node.value == val:
                 prev_node.next = current_node.next
+                if current_node == self.tail:
+                    self.tail = prev_node
                 if not all:
                     return
             else:
                 prev_node = current_node
-
             current_node = current_node.next
 
     def clean(self):
@@ -73,11 +70,9 @@ class LinkedList:
     def __len__(self):
         length = 0
         node = self.head
-
         while node is not None:
             length += 1
             node = node.next
-
         return length
 
     def insert(self, afterNode, newNode):
@@ -87,7 +82,6 @@ class LinkedList:
             if self.tail is None:
                 self.tail = newNode
             return
-
         node = self.head
         while node is not None:
             if node == afterNode:
@@ -96,5 +90,4 @@ class LinkedList:
                 if node == self.tail:
                     self.tail = newNode
                 return
-
             node = node.next
