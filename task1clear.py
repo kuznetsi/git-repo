@@ -42,6 +42,8 @@ class LinkedList:
         return found_nodes
 
     def delete(self, val, all=False):
+        if val is None or val == "":
+            return
         if self.head is None:
             return
         if self.head.value == val:
@@ -62,6 +64,9 @@ class LinkedList:
             else:
                 prev_node = current_node
             current_node = current_node.next
+        if all and self.tail is not None and self.tail.value == val:
+            prev_node.next = None
+            self.tail = prev_node
 
     def clean(self):
         self.head = None
@@ -76,18 +81,20 @@ class LinkedList:
         return length
 
     def insert(self, afterNode, newNode):
+        if newNode is None:
+            return
         if afterNode is None:
             newNode.next = self.head
             self.head = newNode
             if self.tail is None:
                 self.tail = newNode
-            return
-        node = self.head
-        while node is not None:
-            if node == afterNode:
-                newNode.next = node.next
-                node.next = newNode
-                if node == self.tail:
-                    self.tail = newNode
-                return
-            node = node.next
+        else:
+            node = self.head
+            while node is not None:
+                if node == afterNode:
+                    newNode.next = node.next
+                    node.next = newNode
+                    if node == self.tail:
+                        self.tail = newNode
+                    break
+                node = node.next
