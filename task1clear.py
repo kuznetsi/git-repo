@@ -48,10 +48,10 @@ class LinkedList:
             return
         if self.head.value == val:
             self.head = self.head.next
-            if self.head is None:
-                self.tail = None
             if not all:
                 return
+            if self.head is None:
+                self.tail = None
         prev_node = self.head
         current_node = prev_node.next
         while current_node is not None:
@@ -72,7 +72,7 @@ class LinkedList:
         self.head = None
         self.tail = None
 
-    def len(self):
+    def __len__(self):
         length = 0
         node = self.head
         while node is not None:
