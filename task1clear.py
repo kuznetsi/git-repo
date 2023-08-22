@@ -47,11 +47,13 @@ class LinkedList:
         if self.head is None:
             return
         if self.head.value == val:
-            self.head = self.head.next
-            if not all:
-                return
-            if self.head is None:
+            if self.head == self.tail:
+                self.head = None
                 self.tail = None
+            else:
+                self.head = self.head.next
+                if not all:
+                    return
         prev_node = self.head
         current_node = prev_node.next
         while current_node is not None:
