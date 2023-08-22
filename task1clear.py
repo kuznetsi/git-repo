@@ -50,6 +50,7 @@ class LinkedList:
             if self.head == self.tail:
                 self.head = None
                 self.tail = None
+                return
             else:
                 self.head = self.head.next
                 if not all:
