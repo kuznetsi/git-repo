@@ -45,10 +45,10 @@ class LinkedList2:
             return
         if self.head.value == val:
             self.head = self.head.next
-            if not all:
-                return
             if self.head is None:
                 self.tail = None
+            if not all:
+                return
         prev_node = self.head
         current_node = prev_node.next
         while current_node is not None:
