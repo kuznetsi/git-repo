@@ -106,7 +106,7 @@ class LinkedList2:
         self.head = None
         self.tail = None
 
-    def __len__(self):
+    def len(self):
         length = 0
         if self.head is None:
             return length
