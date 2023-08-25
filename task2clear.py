@@ -43,27 +43,32 @@ class LinkedList2:
             return
         if self.head is None:
             return
-        if self.head.value == val:
-            self.head = self.head.next
-            if self.head is None:
-                self.tail = None
-            if not all:
-                return
-        prev_node = self.head
-        current_node = prev_node.next
-        while current_node is not None:
-            if current_node.value == val:
-                prev_node.next = current_node.next
-                if current_node == self.tail:
-                    self.tail = prev_node
+        node = self.head
+        while node is not None:
+            if node.value == val:
+                if node.prev is None:
+                    self.head = node.next
+                    if self.head is not None:
+                        self.head.prev = None
+                    if node == self.tail:
+                        self.tail = None
+                    if not all:
+                        return
+                else:
+                    node.prev.next = node.next
+                    if node == self.tail:
+                        self.tail = node.prev
+                    if node.next is not None:
+                        node.next.prev = node.prev
+                    if not all:
+                        return
                 if not all:
                     return
-            else:
-                prev_node = current_node
-            current_node = current_node.next
+            node = node.next
         if all and self.tail is not None and self.tail.value == val:
-            prev_node.next = None
-            self.tail = prev_node
+            self.tail = self.tail.prev
+            if self.tail is not None:
+                self.tail.next = None
 
     def insert(self, afterNode, newNode):
         if newNode is None:
