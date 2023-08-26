@@ -73,15 +73,17 @@ class LinkedList2:
     def insert(self, afterNode, newNode):
         if newNode is None:
             return
-        if afterNode is None and self.head is None:
-            newNode.next = self.head
-            self.head = newNode
-            newNode.prev = None
+        if afterNode is None:
             if self.head is None:
+                self.head = newNode
                 self.tail = newNode
+                newNode.prev = None
+                newNode.next = None
             else:
-                self.head.prev = newNode
-            self.head = newNode
+                newNode.prev = self.tail
+                newNode.next = None
+                self.tail.next = newNode
+                self.tail = newNode
         else:
             node = self.head
             while node is not None:
@@ -102,9 +104,13 @@ class LinkedList2:
         if self.head is None:
             self.head = newNode
             self.tail = newNode
+            newNode.prev = None
+            newNode.next = None
         else:
             newNode.next = self.head
             self.head.prev = newNode
+            self.head = newNode
+            newNode.prev = None
             self.head = newNode
 
     def clean(self):
