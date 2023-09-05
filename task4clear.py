@@ -6,16 +6,14 @@ class Stack:
         return len(self.stack)
 
     def pop(self):
-        if not self.is_empty():
-            return self.stack.pop()
-        else:
+        if not self.stack:
             return None
+        return self.stack.pop()
 
     def push(self, value):
         self.stack.append(value)
 
     def peek(self):
-        if not self.is_empty():
-            return self.stack[-1]
-        else:
+        if not self.stack:
             return None
+        return self.stack[-1]
