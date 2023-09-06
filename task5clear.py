@@ -10,10 +10,8 @@ class Queue:
         if not self.stack_2:
             while self.stack_1:
                 self.stack_2.append(self.stack_1.pop())
-
         if self.stack_2:
             return self.stack_2.pop()
-
         raise IndexError("Null stack")
 
     def size(self):
