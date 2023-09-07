@@ -12,7 +12,7 @@ class Queue:
                 self.stack_2.append(self.stack_1.pop())
         if self.stack_2:
             return self.stack_2.pop()
-        raise IndexError("Null stack")
+        return None
 
     def size(self):
         return len(self.stack_1) + len(self.stack_2)
