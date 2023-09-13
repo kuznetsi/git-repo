@@ -34,7 +34,8 @@ class OrderedList:
             prev = None
             while current is not None:
                 comparison_result = self.compare(current.value, value)
-                if (self.__ascending and comparison_result > 0) or (not self.__ascending and comparison_result < 0):
+                if (self.__ascending and comparison_result > 0) or \
+                        (not self.__ascending and comparison_result < 0):
                     break
                 prev = current
                 current = current.next
@@ -59,7 +60,8 @@ class OrderedList:
             comparison_result = self.compare(current.value, val)
             if comparison_result == 0:
                 return current
-            elif (self.__ascending and comparison_result > 0) or (not self.__ascending and comparison_result < 0):
+            elif (self.__ascending and comparison_result > 0) or \
+                    (not self.__ascending and comparison_result < 0):
                 break
             current = current.next
         return None
@@ -80,14 +82,18 @@ class OrderedList:
                 if current == self.tail:
                     self.tail = current.prev
                 return
-            elif (self.__ascending and comparison_result > 0) or (not self.__ascending and comparison_result < 0):
+            elif (self.__ascending and comparison_result > 0) or \
+                    (not self.__ascending and comparison_result < 0):
                 break
             current = current.next
 
     def clean(self):
-        self.__ascending = True
-        self.head = None
-        self.tail = None
+        if self.head is not None:
+            self.__ascending = True
+            self.head = None
+            self.tail = None
+        else:
+            return
 
     def len(self):
         length = 0
