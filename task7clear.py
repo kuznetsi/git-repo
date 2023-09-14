@@ -87,13 +87,14 @@ class OrderedList:
                 break
             current = current.next
 
-    def clean(self, asc=True):
-        if asc:
-            self.__ascending = True
+    def clean(self, asc=None):
+        if hasattr(self, 'head'):
             self.head = None
+        if hasattr(self, 'tail'):
             self.tail = None
-        else:
-            return
+    
+        if asc is not None:
+            self.__ascending = asc
                          
     def len(self):
         length = 0
