@@ -31,16 +31,22 @@ class OrderedList:
         current = self.head
         prev = None
         while current is not None:
-            comparison_result = self.compare(current.value, value)
-            if (self.__ascending and comparison_result > 0) or \
-                    (not self.__ascending and comparison_result < 0):
+            if not self.__ascending and self.compare(current.value, value) > 0:
+                break
+            if self.__ascending and self.compare(current.value, value) < 0:
                 break
             prev = current
             current = current.next
         if current is None:
-            self.tail.next = new_node
-            new_node.prev = self.tail
-            self.tail = new_node
+            if (self.__ascending and self.compare(self.tail.value, value) <= 0) or \
+                    (not self.__ascending and self.compare(self.tail.value, value) >= 0):
+                self.tail.next = new_node
+                new_node.prev = self.tail
+                self.tail = new_node
+            else:
+                new_node.next = self.head
+                self.head.prev = new_node
+                self.head = new_node
         else:
             if prev is None:
                 new_node.next = self.head
