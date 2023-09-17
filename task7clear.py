@@ -23,36 +23,34 @@ class OrderedList:
             return 1
 
     def add(self, value):
-        if not isinstance(value, (int, float)):
-            return
         new_node = Node(value)
         if self.head is None:
             self.head = new_node
             self.tail = new_node
+            return
+        current = self.head
+        prev = None
+        while current is not None:
+            comparison_result = self.compare(current.value, value)
+            if (self.__ascending and comparison_result > 0) or \
+                    (not self.__ascending and comparison_result < 0):
+                break
+            prev = current
+            current = current.next
+        if current is None:
+            self.tail.next = new_node
+            new_node.prev = self.tail
+            self.tail = new_node
         else:
-            current = self.head
-            prev = None
-            while current is not None:
-                comparison_result = self.compare(current.value, value)
-                if (self.__ascending and comparison_result > 0) or \
-                        (not self.__ascending and comparison_result < 0):
-                    break
-                prev = current
-                current = current.next
-            if current is None:
-                self.tail.next = new_node
-                new_node.prev = self.tail
-                self.tail = new_node
+            if prev is None:
+                new_node.next = self.head
+                self.head.prev = new_node
+                self.head = new_node
             else:
-                if prev is None:
-                    new_node.next = self.head
-                    self.head.prev = new_node
-                    self.head = new_node
-                else:
-                    prev.next = new_node
-                    new_node.prev = prev
-                    new_node.next = current
-                    current.prev = new_node
+                prev.next = new_node
+                new_node.prev = prev
+                new_node.next = current
+                current.prev = new_node
 
     def find(self, val):
         current = self.head
