@@ -22,31 +22,34 @@ class OrderedList:
         return
 
     def add(self, value):
-        if self.head is None:
-            self.head = Node(value)
-            self.tail = self.head
-            return
         new_node = Node(value)
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+            return
         current = self.head
         prev = None
-        while current:
-            if not isinstance(current.value, type(new_node.value)):
-                raise ValueError("Incompatible types in the list")           
-            comparison_result = self.compare(current.value, new_node.value)
-            if (self.__ascending and comparison_result > 0) or \
-                    (not self.__ascending and comparison_result < 0):
+        while current is not None:
+            if not self.__ascending and self.compare(current.value, value) < 0:
+                break
+            if self.__ascending and self.compare(current.value, value) > 0:
                 break
             prev = current
             current = current.next
-        if prev is None:
-            new_node.next = self.head
-            self.head.prev = new_node
-            self.head = new_node
+        if current is None:
+            self.tail.next = new_node
+            new_node.prev = self.tail
+            self.tail = new_node
         else:
-            new_node.next = current
-            new_node.prev = prev
-            prev.next = new_node
-            current.prev = new_node
+            if prev is None:
+                new_node.next = self.head
+                self.head.prev = new_node
+                self.head = new_node
+            else:
+                prev.next = new_node
+                new_node.prev = prev
+                new_node.next = current
+                current.prev = new_node    
 
     def find(self, val):
         current = self.head
