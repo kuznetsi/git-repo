@@ -20,7 +20,6 @@ class OrderedList:
         elif isinstance(v1, str) and isinstance(v2, str):
             return (v1 > v2) - (v1 < v2)
         return
-
     def add(self, value):
         if not isinstance(value, (int, float, str)):
             return
@@ -32,10 +31,13 @@ class OrderedList:
         current = self.head
         prev = None
         while current is not None:
-            if isinstance(value, str):
+            comparison_result = 0
+            if isinstance(value, str) and isinstance(current.value, str):
                 comparison_result = self.compare(str(current.value).strip(), str(value).strip())
-            else:
+            elif isinstance(value, (int, float)) and isinstance(current.value, (int, float)):
                 comparison_result = self.compare(current.value, value)
+            else:
+                return
             if not self.__ascending and comparison_result < 0:
                 break
             if self.__ascending and comparison_result > 0:
